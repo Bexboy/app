@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My App</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Bexboy/app/main/MIT BEX BOY 2 .png.png">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#333333;
+      --card:#ffffff;
+      --accent:#4facfe;
+    }
+
+    body.dark{
+      --bg:#0f172a;
+      --text:#e5e7eb;
+      --card:#1e293b;
+    }
+
+    body { margin:0; font-family: Arial, sans-serif; background:var(--bg); color:var(--text); transition:0.3s; }
+
+    header { 
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://raw.githubusercontent.com/Bexboy/app/main/MIT BEX BOY 2 .png.png');
+      background-size: cover;
+      background-position: center;
+      color:#fff; 
+      padding:80px 20px; 
+      text-align:center; 
+      position:relative; 
+      overflow:hidden; 
+    }
+
+    header h1 { font-size:3rem; margin-bottom:10px; animation:fadeUp 1s ease; }
+    header p { font-size:1.2rem; margin-bottom:20px; animation:fadeUp 1.2s ease; }
+
+    .btn { display:inline-block; padding:15px 30px; background:#fff; color:#333; text-decoration:none; border-radius:30px; font-weight:bold; transition:0.3s; }
+    .btn:hover { transform:scale(1.05); }
+
+    .toggle {
+      position:absolute;
+      top:20px;
+      right:20px;
+      background:#fff;
+      border:none;
+      padding:10px 15px;
+      border-radius:20px;
+      cursor:pointer;
+    }
+
+    .section { padding:60px 20px; text-align:center; }
+
+    .features { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; max-width:1000px; margin:auto; }
+
+    .card {
+      padding:20px;
+      border-radius:15px;
+      background:var(--card);
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+      transform:translateY(20px);
+      opacity:0;
+      animation:fadeUp 1s forwards;
+    }
+
+    .screenshots img { width:300px; border-radius:10px; margin:10px; transition:0.3s; }
+    .screenshots img:hover { transform:scale(1.05); }
+
+    footer { background:#111; color:#aaa; text-align:center; padding:20px; }
+
+    .counter {
+      margin-top:15px;
+      font-size:1rem;
+      opacity:0.9;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(20px);} 
+      to{opacity:1; transform:translateY(0);} 
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <button class="toggle" onclick="toggleDarkMode()">🌙</button>
+  <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/images/background.png" alt="App Logo" style="width:120px; border-radius:10px; margin-bottom:10px;">
+  <h1>My Awesome App</h1>
+  <p>The easiest way to do amazing things 🚀</p>
+  <a class="btn" href="https://github.com/yourusername/yourrepo/releases/latest" target="_blank" onclick="incrementDownload()">Download Now</a>
+  <div class="counter">Downloads: <span id="count">0</span></div>
+</header>
+
+<section class="section">
+  <h2>✨ Features</h2>
+  <div class="features">
+    <div class="card"><h3>Fast</h3><p>Lightning fast performance.</p></div>
+    <div class="card"><h3>Simple</h3><p>Easy-to-use interface.</p></div>
+    <div class="card"><h3>Secure</h3><p>Your data is protected.</p></div>
+  </div>
+</section>
+
+<section class="section screenshots">
+  <h2>📸 Screenshots</h2>
+  <img src="https://via.placeholder.com/300x600">
+  <img src="https://via.placeholder.com/300x600">
+</section>
+
+<section class="section">
+  <h2>⚡ How to Install</h2>
+  <p>1. Click download</p>
+  <p>2. Open file</p>
+  <p>3. Install</p>
+</section>
+
+<section class="section">
+  <h2>💻 Open Source</h2>
+  <a class="btn" href="https://github.com/yourusername/yourrepo" target="_blank">View on GitHub</a>
+</section>
+
+<footer>
+  <p>© 2026 My App</p>
+</footer>
+
+<script>
+  // Download Counter (localStorage based)
+  function incrementDownload(){
+    let count = localStorage.getItem('downloads') || 0;
+    count++;
+    localStorage.setItem('downloads', count);
+  }
+
+  function loadCount(){
+    let count = localStorage.getItem('downloads') || 0;
+    document.getElementById('count').innerText = count;
+  }
+
+  // Dark mode toggle
+  function toggleDarkMode(){
+    document.body.classList.toggle('dark');
+  }
+
+  loadCount();
+</script>
+
+</body>
+</html>
