@@ -2,296 +2,637 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bexboy - official</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Bexboy Official</title>
 
-<link rel="icon" href="https://raw.githubusercontent.com/Bexboy/app/main/MIT%20BEX%20BOY%202%20.png.png">
+<link rel="icon"
+href="https://raw.githubusercontent.com/Bexboy/app/main/MIT%20BEX%20BOY%202%20.png.png">
 
 <style>
 :root{
-  --text:#ecfdf5;
-  --accent:#22c55e;
+--text:#ecfdf5;
+--accent:#22c55e;
 }
 
-html{ scroll-behavior:smooth; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;}
 
 body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  color:var(--text);
-  overflow-x:hidden;
+margin:0;
+font-family:Arial,sans-serif;
+color:var(--text);
+overflow-x:hidden;
+background:#052e16;
 }
 
-/* 🌌 CANVAS BACKGROUND */
+/* PARTICLE BACKGROUND */
 #bg{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:-2;
+position:fixed;
+inset:0;
+z-index:-2;
 }
 
-/* 📊 PROGRESS BAR */
+body:before{
+content:"";
+position:fixed;
+inset:0;
+z-index:-1;
+background:
+radial-gradient(circle at 20% 30%,
+rgba(34,197,94,.13),
+transparent 40%),
+radial-gradient(circle at 80% 70%,
+rgba(34,197,94,.08),
+transparent 40%);
+pointer-events:none;
+}
+
+/* PROGRESS */
 .progress{
-  position:fixed;
-  top:0;
-  left:0;
-  height:4px;
-  background:#22c55e;
-  width:0%;
-  z-index:999;
+position:fixed;
+top:0;
+left:0;
+height:4px;
+width:0%;
+z-index:9999;
+background:linear-gradient(90deg,#22c55e,#86efac);
 }
 
-/* NAV */
+
+/* NAVBAR */
 nav{
-  display:flex;
-  justify-content:space-between;
-  padding:20px 40px;
-  align-items:center;
+position:sticky;
+top:0;
+z-index:100;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:rgba(5,46,22,.42);
+backdrop-filter:blur(18px);
+
+border-bottom:1px solid rgba(255,255,255,.08);
+box-shadow:
+0 1px 0 rgba(255,255,255,.03),
+0 8px 22px rgba(0,0,0,.18);
 }
 
-nav h2{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:0;
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+color:white;
+text-decoration:none;
+font-weight:bold;
 }
 
-nav h2 img{
-  width:32px;
-  height:32px;
-  border-radius:8px;
-  transition:0.3s;
+.logo img{
+width:32px;
+height:32px;
+border-radius:8px;
+transition:.3s;
 }
 
-nav h2 img:hover{
-  transform:scale(1.2) rotate(5deg);
+.logo img:hover{
+transform:scale(1.15) rotate(5deg);
 }
 
-nav a{
-  color:#d1fae5;
-  margin-left:20px;
-  text-decoration:none;
+.nav-links{
+display:flex;
+align-items:center;
+gap:20px;
 }
+
+.nav-links a{
+color:#d1fae5;
+text-decoration:none;
+transition:.25s;
+}
+
+.nav-links a:hover{
+color:white;
+transform:translateY(-2px);
+}
+
+/* hamburger */
+.menu-toggle{
+display:none;
+background:none;
+border:none;
+cursor:pointer;
+padding:0;
+}
+
+.menu-toggle span{
+display:block;
+width:28px;
+height:3px;
+margin:5px 0;
+background:#d1fae5;
+border-radius:5px;
+transition:.35s;
+}
+
+.menu-toggle.active span:nth-child(1){
+transform:translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2){
+opacity:0;
+}
+
+.menu-toggle.active span:nth-child(3){
+transform:translateY(-8px) rotate(-45deg);
+}
+
+/* MOBILE MENU */
+@media(max-width:768px){
+
+nav{
+padding:18px 22px;
+}
+
+.menu-toggle{
+display:block;
+z-index:120;
+}
+
+.nav-links{
+position:absolute;
+top:100%;
+left:12px;
+right:12px;
+
+flex-direction:column;
+gap:0;
+
+background:rgba(5,46,22,.95);
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.08);
+border-radius:18px;
+
+box-shadow:
+0 20px 40px rgba(0,0,0,.35);
+
+max-height:0;
+opacity:0;
+overflow:hidden;
+pointer-events:none;
+transform:translateY(-10px);
+
+transition:.4s;
+}
+
+.nav-links.open{
+max-height:300px;
+opacity:1;
+pointer-events:auto;
+transform:none;
+}
+
+.nav-links a{
+width:100%;
+padding:18px;
+text-align:center;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.nav-links a:last-child{
+border-bottom:none;
+}
+
+}
+
 
 /* HERO */
 .hero{
-  text-align:center;
-  padding:100px 20px;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:80px 20px;
 }
 
 .hero h1{
-  font-size:3.5rem;
+font-size:clamp(3rem,8vw,6rem);
+margin:0;
 }
 
 .hero p{
-  color:#bbf7d0;
+max-width:700px;
+font-size:1.15rem;
+color:#bbf7d0;
 }
 
-/* BUTTON */
+/* button */
 .btn{
-  display:inline-block;
-  margin-top:30px;
-  padding:15px 35px;
-  background:linear-gradient(135deg,#22c55e,#4ade80);
-  color:#022c22;
-  border-radius:12px;
-  font-weight:bold;
-  text-decoration:none;
-  transition:0.2s;
+display:inline-block;
+margin-top:35px;
+padding:16px 38px;
+background:linear-gradient(135deg,#22c55e,#4ade80);
+color:#022c22;
+border-radius:14px;
+font-weight:bold;
+text-decoration:none;
+box-shadow:0 0 30px rgba(34,197,94,.45);
+transition:.35s;
 }
 
 .btn:hover{
-  transform:scale(1.05);
+transform:scale(1.06);
+box-shadow:0 0 45px rgba(34,197,94,.6);
 }
 
-/* CARDS */
-.card{
-  background:rgba(0,0,0,0.3);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.1);
-  padding:20px;
-  border-radius:15px;
-  margin:10px;
-  width:250px;
-  display:inline-block;
-  transition:0.3s;
-}
 
-.card:hover{
-  transform:translateY(-8px);
-}
-
-/* SECTION */
+/* sections */
 .section{
-  padding:60px 20px;
-  text-align:center;
+padding:100px 25px;
+text-align:center;
 }
 
-/* SCREENSHOTS */
+.section h2{
+font-size:clamp(2rem,5vw,4rem);
+margin-bottom:35px;
+}
+
+.grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+}
+
+/* cards */
+.card,.step{
+width:260px;
+padding:28px;
+border-radius:26px;
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,.08);
+box-shadow:
+0 15px 40px rgba(0,0,0,.25);
+transition:.35s;
+}
+
+.card:hover,.step:hover{
+transform:translateY(-10px);
+}
+
+/* screenshots */
+.screenshots{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:28px;
+margin-top:30px;
+}
+
 .screenshots img{
-  width:220px;
-  border-radius:15px;
-  margin:10px;
-  transition:0.3s;
+width:min(280px,85vw);
+border-radius:22px;
+box-shadow:0 15px 40px rgba(0,0,0,.35);
+transition:.45s;
 }
 
 .screenshots img:hover{
-  transform:scale(1.08);
+transform:scale(1.04) translateY(-8px);
 }
 
-/* ✨ REVEAL */
+/* reveal */
 .reveal{
-  opacity:0;
-  transform:translateY(60px);
+opacity:0;
+transform:translateY(60px);
+transition:.9s;
 }
 
 .reveal.active{
-  opacity:1;
-  transform:translateY(0);
-  transition:0.8s;
+opacity:1;
+transform:none;
 }
 
-/* 🧠 CURSOR GLOW */
+/* cursor glow */
 .cursor{
-  position:fixed;
-  width:200px;
-  height:200px;
-  background:radial-gradient(circle, rgba(34,197,94,0.15), transparent);
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  filter:blur(30px);
-  z-index:999;
+position:fixed;
+width:170px;
+height:170px;
+background:
+radial-gradient(circle,
+rgba(34,197,94,.14),
+transparent);
+border-radius:50%;
+filter:blur(28px);
+pointer-events:none;
+transform:translate(-50%,-50%);
+z-index:999;
 }
 
 footer{
-  text-align:center;
-  padding:20px;
+text-align:center;
+padding:30px;
 }
 </style>
 </head>
-
 <body>
 
 <canvas id="bg"></canvas>
+
 <div class="progress"></div>
 <div class="cursor"></div>
 
+
 <!-- NAV -->
 <nav>
-  <h2>
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" target="_blank" style="display:flex;align-items:center;gap:10px;color:white;text-decoration:none;">
-      <img src="https://raw.githubusercontent.com/Bexboy/app/main/MIT%20BEX%20BOY%202%20.png.png">
-      Bexboy
-    </a>
-  </h2>
-  <div>
-    <a href="#features">Features</a>
-    <a href="https://github.com/Bexboy" target="_blank">GitHub</a>
-  </div>
+
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+target="_blank"
+class="logo">
+<img src="https://raw.githubusercontent.com/Bexboy/app/main/MIT%20BEX%20BOY%202%20.png.png">
+Bexboy
+</a>
+
+<div class="nav-links" id="navLinks">
+<a href="#install">Install</a>
+<a href="#features">Features</a>
+<a href="https://github.com/Bexboy"
+target="_blank">
+GitHub
+</a>
+</div>
+
+<button
+class="menu-toggle"
+id="menuToggle"
+aria-label="menu">
+<span></span>
+<span></span>
+<span></span>
+</button>
+
 </nav>
+
 
 <!-- HERO -->
 <section class="hero">
-  <h1 class="reveal">Download Bexboy Instantly</h1>
-  <p class="reveal">Fast, simple, and powerful.</p>
-  <a class="btn reveal" href="https://raw.githubusercontent.com/Bexboy/app/main/bexboy version 2.0.2.apk">Download Now</a>
+<h1 class="reveal">
+Download Bexboy Instantly
+</h1>
+
+<p class="reveal">
+Fast, simple and powerful.
+</p>
+
+<a class="btn reveal"
+href="https://raw.githubusercontent.com/Bexboy/app/main/bexboy version 2.0.2.apk">
+Download Now
+</a>
 </section>
+
+
+
+<!-- INSTALL -->
+<section id="install" class="section">
+<h2 class="reveal">
+📥 How To Install
+</h2>
+
+<div class="grid">
+
+<div class="step reveal">
+1. Download APK
+</div>
+
+<div class="step reveal">
+2. Allow Unknown Sources
+</div>
+
+<div class="step reveal">
+3. Install App
+</div>
+
+<div class="step reveal">
+4. Launch 🚀
+</div>
+
+</div>
+</section>
+
+
 
 <!-- FEATURES -->
-<section id="features" class="section reveal">
-  <h2>Features</h2>
-  <div>
-    <div class="card reveal">⚡ Fast</div>
-    <div class="card reveal">🎯 Simple</div>
-    <div class="card reveal">🔒 Secure</div>
-  </div>
+<section id="features" class="section">
+
+<h2 class="reveal">
+⚡ Features
+</h2>
+
+<div class="grid">
+
+<div class="card reveal">
+⚡ Fast Performance
+</div>
+
+<div class="card reveal">
+🎯 Simple UI
+</div>
+
+<div class="card reveal">
+🔒 Secure
+</div>
+
+</div>
 </section>
+
+
 
 <!-- SCREENSHOTS -->
-<section class="section reveal">
-  <h2>📱 Screenshots</h2>
-  <div class="screenshots">
-    <img class="reveal" src="https://raw.githubusercontent.com/Bexboy/app/main/WhatsApp Image 2026-03-31 at 9.29.53 PM.jpeg">
-    <img class="reveal" src="https://raw.githubusercontent.com/Bexboy/app/main/the whay pn.jpeg">
-  </div>
+<section class="section">
+
+<h2 class="reveal">
+📱 Screenshots
+</h2>
+
+<div class="screenshots">
+
+<img class="reveal"
+src="https://raw.githubusercontent.com/Bexboy/app/main/WhatsApp Image 2026-03-31 at 9.29.53 PM.jpeg">
+
+<img class="reveal"
+src="https://raw.githubusercontent.com/Bexboy/app/main/the whay pn.jpeg">
+
+</div>
+
 </section>
 
-<footer>© 2026 Bexboy</footer>
+<footer>
+© 2026 Bexboy
+</footer>
+
 
 <script>
 
-/* ✨ REVEAL */
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach((entry,i)=>{
-    if(entry.isIntersecting){
-      setTimeout(()=>entry.target.classList.add('active'), i*120);
-    }
-  });
-});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+/* mobile menu */
+const menuBtn=
+document.getElementById("menuToggle");
 
-/* 📊 PROGRESS */
+const navLinks=
+document.getElementById("navLinks");
+
+menuBtn.addEventListener("click",()=>{
+menuBtn.classList.toggle("active");
+navLinks.classList.toggle("open");
+});
+
+/* close menu on tap */
+document.querySelectorAll(".nav-links a")
+.forEach(link=>{
+link.addEventListener("click",()=>{
+menuBtn.classList.remove("active");
+navLinks.classList.remove("open");
+});
+});
+
+
+/* smooth nav */
+document.querySelectorAll('a[href^="#"]')
+.forEach(link=>{
+link.addEventListener('click',e=>{
+e.preventDefault();
+document.querySelector(
+link.getAttribute('href')
+).scrollIntoView({
+behavior:'smooth'
+});
+});
+});
+
+
+/* reveal */
+const observer=
+new IntersectionObserver(entries=>{
+entries.forEach((entry,i)=>{
+if(entry.isIntersecting){
+setTimeout(()=>{
+entry.target.classList.add('active');
+},i*120);
+}
+});
+});
+
+document.querySelectorAll('.reveal')
+.forEach(el=>observer.observe(el));
+
+
+/* progress */
 window.addEventListener('scroll',()=>{
-  let s=window.scrollY;
-  let h=document.body.scrollHeight-window.innerHeight;
-  document.querySelector('.progress').style.width=(s/h)*100+"%";
+let s=scrollY;
+let h=document.body.scrollHeight-innerHeight;
+
+document.querySelector('.progress')
+.style.width=(s/h)*100+"%";
 });
 
-/* 🧠 CURSOR */
+
+/* cursor glow */
 const cursor=document.querySelector('.cursor');
+
+let mx=0,my=0,x=0,y=0;
+
 document.addEventListener('mousemove',e=>{
-  cursor.style.left=e.clientX+'px';
-  cursor.style.top=e.clientY+'px';
+mx=e.clientX;
+my=e.clientY;
 });
 
-/* 🌌 PARTICLE BACKGROUND */
+(function animateCursor(){
+
+x+=(mx-x)*0.14;
+y+=(my-y)*0.14;
+
+cursor.style.left=x+'px';
+cursor.style.top=y+'px';
+
+requestAnimationFrame(
+animateCursor
+);
+
+})();
+
+
+
+/* PARTICLES */
 const canvas=document.getElementById("bg");
 const ctx=canvas.getContext("2d");
 
+function resize(){
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
+}
+resize();
 
 let particles=[];
 
-for(let i=0;i<80;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    size:Math.random()*2+1,
-    vx:(Math.random()-0.5)*0.5,
-    vy:(Math.random()-0.5)*0.5
-  });
+for(let i=0;i<95;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*2+1,
+vx:(Math.random()-0.5)*0.45,
+vy:(Math.random()-0.5)*0.45
+});
 }
 
 function animate(){
-  ctx.fillStyle="#052e16";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  ctx.fillStyle="#22c55e";
+ctx.fillStyle="#052e16";
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
-  particles.forEach(p=>{
-    p.x+=p.vx;
-    p.y+=p.vy;
+ctx.fillStyle="#4ade80";
 
-    if(p.x<0||p.x>canvas.width) p.vx*=-1;
-    if(p.y<0||p.y>canvas.height) p.vy*=-1;
+particles.forEach(p=>{
 
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-    ctx.fill();
-  });
+p.x+=p.vx;
+p.y+=p.vy;
 
-  requestAnimationFrame(animate);
+if(p.x<0||p.x>canvas.width)
+p.vx*=-1;
+
+if(p.y<0||p.y>canvas.height)
+p.vy*=-1;
+
+ctx.shadowBlur=10;
+ctx.shadowColor="#22c55e";
+
+ctx.beginPath();
+ctx.arc(
+p.x,
+p.y,
+p.size,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+});
+
+requestAnimationFrame(animate);
+
 }
 
 animate();
 
-window.addEventListener("resize",()=>{
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-});
+window.addEventListener(
+"resize",
+resize
+);
 
 </script>
 
